@@ -1,5 +1,6 @@
 package com.thesun4sky.todoparty.todo;
 
+import com.thesun4sky.todoparty.comment.Comment;
 import com.thesun4sky.todoparty.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -32,6 +34,9 @@ public class Todo {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "todo")
+    private List<Comment> comments;
 
     public Todo(TodoRequestDTO dto) {
         this.title = dto.getTitle();

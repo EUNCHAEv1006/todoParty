@@ -1,6 +1,6 @@
 package com.thesun4sky.todoparty.todo;
 
-import com.thesun4sky.todoparty.CommonResponseDto;
+import com.thesun4sky.todoparty.CommonResponseDTO;
 import com.thesun4sky.todoparty.user.UserDTO;
 import com.thesun4sky.todoparty.user.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
@@ -29,12 +29,12 @@ public class TodoController {
     }
 
     @GetMapping("/{todoId}")
-    public ResponseEntity<CommonResponseDto> getTodo(@PathVariable Long todoId) {
+    public ResponseEntity<CommonResponseDTO> getTodo(@PathVariable Long todoId) {
         try {
-            TodoResponseDTO responseDTO = todoService.getTodo(todoId);
+            TodoResponseDTO responseDTO = todoService.getTodoDto(todoId);
             return ResponseEntity.ok().body(responseDTO);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(new CommonResponseDto(e.getMessage(), HttpStatus.BAD_REQUEST.value()));
+            return ResponseEntity.badRequest().body(new CommonResponseDTO(e.getMessage(), HttpStatus.BAD_REQUEST.value()));
         }
     }
 
@@ -52,22 +52,22 @@ public class TodoController {
 
     // Put은 전체를 수정할 때 많이사용, Patch는 일부분에 많이 사용
     @PutMapping("/{todoId}")
-    public ResponseEntity<CommonResponseDto> putTodo(@PathVariable Long todoId, @RequestBody TodoRequestDTO todoRequestDTO, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<CommonResponseDTO> putTodo(@PathVariable Long todoId, @RequestBody TodoRequestDTO todoRequestDTO, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         try {
             TodoResponseDTO responseDTO = todoService.updateTodo(todoId, todoRequestDTO, userDetails.getUser());
             return ResponseEntity.ok().body(responseDTO);
         } catch (RejectedExecutionException | IllegalArgumentException ex) {
-            return ResponseEntity.badRequest().body(new CommonResponseDto(ex.getMessage(), HttpStatus.BAD_REQUEST.value()));
+            return ResponseEntity.badRequest().body(new CommonResponseDTO(ex.getMessage(), HttpStatus.BAD_REQUEST.value()));
         }
     }
 
     @PatchMapping("/{todoId}/complete")
-    public ResponseEntity<CommonResponseDto> patchTodo(@PathVariable Long todoId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<CommonResponseDTO> patchTodo(@PathVariable Long todoId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         try {
             TodoResponseDTO responseDTO = todoService.completeTodo(todoId, userDetails.getUser());
             return ResponseEntity.ok().body(responseDTO);
         } catch (RejectedExecutionException | IllegalArgumentException ex) {
-            return ResponseEntity.badRequest().body(new CommonResponseDto(ex.getMessage(), HttpStatus.BAD_REQUEST.value()));
+            return ResponseEntity.badRequest().body(new CommonResponseDTO(ex.getMessage(), HttpStatus.BAD_REQUEST.value()));
         }
     }
 }

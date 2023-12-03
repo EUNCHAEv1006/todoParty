@@ -1,9 +1,8 @@
 package com.thesun4sky.todoparty.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.thesun4sky.todoparty.CommonResponseDto;
+import com.thesun4sky.todoparty.CommonResponseDTO;
 import com.thesun4sky.todoparty.user.UserDetailsService;
-import com.thesun4sky.todoparty.user.UserService;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -54,7 +53,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
             } else {
                 // 인증정보가 존재하지 않을때
-                CommonResponseDto commonResponseDto = new CommonResponseDto("토큰이 유효하지 않습니다.", HttpStatus.BAD_REQUEST.value());
+                CommonResponseDTO commonResponseDto = new CommonResponseDTO("토큰이 유효하지 않습니다.", HttpStatus.BAD_REQUEST.value());
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 response.setContentType("application/json; charset=UTF-8");
                 response.getWriter().write(objectMapper.writeValueAsString(commonResponseDto)); // 응답 Body가 Json형태로 바껴서 들어감
