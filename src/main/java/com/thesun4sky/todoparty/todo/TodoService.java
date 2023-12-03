@@ -4,6 +4,8 @@ import com.thesun4sky.todoparty.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class TodoService {
@@ -14,6 +16,13 @@ public class TodoService {
 
         todoRepository.save(todo);
 
+        return new TodoResponseDTO(todo);
+    }
+
+    public TodoResponseDTO getTodo(Long todoId) {
+        Todo todo = todoRepository.findById(todoId)
+                .orElseThrow(
+                        () ->new IllegalArgumentException("존재하지 않는 할일 ID 입니다."));
         return new TodoResponseDTO(todo);
     }
 }
