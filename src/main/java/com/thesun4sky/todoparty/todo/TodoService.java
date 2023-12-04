@@ -2,6 +2,7 @@ package com.thesun4sky.todoparty.todo;
 
 import com.thesun4sky.todoparty.user.User;
 import com.thesun4sky.todoparty.user.UserDTO;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.concurrent.RejectedExecutionException;
 @RequiredArgsConstructor
 public class TodoService {
     private final TodoRepository todoRepository;
+
     public TodoResponseDTO createTodo(TodoRequestDTO dto, User user) {
         Todo todo = new Todo(dto);
         todo.setUser(user);

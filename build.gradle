@@ -38,6 +38,9 @@ dependencies {
     // MySQL
     runtimeOnly 'com.mysql:mysql-connector-j'
 
+    // h2
+    testImplementation 'com.h2database:h2'
+
     // Validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
@@ -53,10 +56,13 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+
+    // Mockito
+    testImplementation 'org.mockito:mockito-core:4.8.0'
 }
 
 tasks.named('bootBuildImage') {
-    builder = 'paketobuildpacks/builder-jammy-base:latest'
+    builder = 'paketobuildpacks/builder:base'
 }
 
 tasks.named('test') {

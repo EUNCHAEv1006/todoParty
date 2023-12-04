@@ -22,7 +22,10 @@ public class TodoResponseDTO extends CommonResponseDTO {
         this.title = todo.getTitle();
         this.content = todo.getContent();
         this.isCompleted = todo.getIscompleted();
-        this.user = new UserDTO(todo.getUser());
         this.createDate = todo.getCreateDate();
+
+        if (todo.getUser() != null) {
+            this.user = new UserDTO(todo.getUser());
+        }
     }
 }
