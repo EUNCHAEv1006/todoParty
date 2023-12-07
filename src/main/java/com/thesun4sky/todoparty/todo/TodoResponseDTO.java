@@ -2,13 +2,15 @@ package com.thesun4sky.todoparty.todo;
 
 import com.thesun4sky.todoparty.CommonResponseDTO;
 import com.thesun4sky.todoparty.user.UserDTO;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter
 @Setter
+@Getter
+@Builder
+@EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
 public class TodoResponseDTO extends CommonResponseDTO {
     private Long id;
     private String title;
@@ -17,15 +19,16 @@ public class TodoResponseDTO extends CommonResponseDTO {
     private UserDTO user;
     private LocalDateTime createDate;
 
+    public TodoResponseDTO(String msg, Integer statusCode) {
+        super(msg, statusCode);
+    }
+
     public TodoResponseDTO(Todo todo) {
         this.id = todo.getId();
         this.title = todo.getTitle();
         this.content = todo.getContent();
-        this.isCompleted = todo.getIscompleted();
+        this.isCompleted = todo.getIsCompleted();
+        this.user = new UserDTO(todo.getUser());
         this.createDate = todo.getCreateDate();
-
-        if (todo.getUser() != null) {
-            this.user = new UserDTO(todo.getUser());
-        }
     }
 }

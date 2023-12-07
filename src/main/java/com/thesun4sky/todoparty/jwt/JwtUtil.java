@@ -34,7 +34,7 @@ public class JwtUtil {
      private Key key;
 
      @PostConstruct // bean 객체가 생성될 때 이 메서드가 호출됨
-    private void init() {
+    public void init() {
          byte[] bytes = Base64.getDecoder().decode(secretKey); // secretKey를 기준으로 Base64로 디코딩
          key = Keys.hmacShaKeyFor(bytes);
      }

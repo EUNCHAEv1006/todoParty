@@ -1,17 +1,17 @@
 package com.thesun4sky.todoparty.user;
 
-import com.thesun4sky.todoparty.todo.Todo;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.io.Serializable;
 
 @Getter
 @Entity
 @NoArgsConstructor
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +22,8 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    public User(String username, String password){
+    @Builder
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
     }

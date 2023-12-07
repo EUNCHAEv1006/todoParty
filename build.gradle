@@ -38,9 +38,6 @@ dependencies {
     // MySQL
     runtimeOnly 'com.mysql:mysql-connector-j'
 
-    // h2
-    testImplementation 'com.h2database:h2'
-
     // Validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
@@ -53,16 +50,15 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     // TEST
+    testRuntimeOnly 'com.h2database:h2'
     testCompileOnly 'org.projectlombok:lombok'
+    testCompileOnly group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
-
-    // Mockito
-    testImplementation 'org.mockito:mockito-core:4.8.0'
 }
 
 tasks.named('bootBuildImage') {
-    builder = 'paketobuildpacks/builder:base'
+    builder = 'paketobuildpacks/builder-jammy-base:latest'
 }
 
 tasks.named('test') {

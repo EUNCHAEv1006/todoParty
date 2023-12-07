@@ -20,7 +20,7 @@ public class UserController {
     private final JwtUtil jwtUtil;
 
     @PostMapping("/signup")
-    public ResponseEntity<CommonResponseDTO> signup(@Valid @RequestBody UserRequestDto userRequestDto) {
+    public ResponseEntity<CommonResponseDTO> signup(@Valid @RequestBody UserRequestDTO userRequestDto) {
         try {
             userService.signup(userRequestDto);
         } catch (IllegalArgumentException exception) {
@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<CommonResponseDTO> login(@RequestBody UserRequestDto userRequestDto, HttpServletResponse response) {
+    public ResponseEntity<CommonResponseDTO> login(@RequestBody UserRequestDTO userRequestDto, HttpServletResponse response) {
         try {
             userService.login(userRequestDto);
         } catch (IllegalArgumentException e) {

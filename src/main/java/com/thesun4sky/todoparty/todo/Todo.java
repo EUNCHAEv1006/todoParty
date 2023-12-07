@@ -3,18 +3,20 @@ package com.thesun4sky.todoparty.todo;
 import com.thesun4sky.todoparty.comment.Comment;
 import com.thesun4sky.todoparty.user.User;
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-@Setter
 @Entity
 @NoArgsConstructor
-public class Todo {
+@EqualsAndHashCode
+public class Todo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,7 +31,7 @@ public class Todo {
     private LocalDateTime createDate;
 
     @Column
-    private Boolean iscompleted;
+    private Boolean isCompleted;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -38,11 +40,17 @@ public class Todo {
     @OneToMany(mappedBy = "todo")
     private List<Comment> comments;
 
+    @Builder
+    public Todo(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
     public Todo(TodoRequestDTO dto) {
         this.title = dto.getTitle();
         this.content = dto.getContent();
         this.createDate = LocalDateTime.now();
-        this.iscompleted = false;
+        this.isCompleted = false;
     }
 
     // 연관관계 메서드
@@ -60,6 +68,6 @@ public class Todo {
     }
 
     public void complete() {
-        this.iscompleted = true;
+        this.isCompleted = true;
     }
 }
